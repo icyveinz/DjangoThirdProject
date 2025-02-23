@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <title>Учу Django</title>
 </head>
 <body>
-<div>
+    <form method="POST">
+        {% csrf_token %}
     <table>
         {{ form.as_table }}
     </table>
-</div>
+    <input type="submit" value="Send" >
+</form>
 </body>
 </html>

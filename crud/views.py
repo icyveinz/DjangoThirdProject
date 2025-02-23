@@ -1,9 +1,13 @@
 from django.shortcuts import render
-from crud.forms import UserForm
+from django.http import HttpResponse
+from .forms import UserForm
 
-
-# Create your views here.
 
 def index(request):
-    userform = UserForm()
-    return render(request, 'index.html', {'form': userform})
+    if request.method == 'POST':
+        name = request.POST.get('name') # получить значение поля Имя
+        age = request.POST.get('age') # получить значение поля Возраст
+        return render(request,'reply.html',{"content" : {"name":name, "age":age}})
+    else:
+        userform = UserForm()
+        return render(request, 'index.html', {'form': userform})
