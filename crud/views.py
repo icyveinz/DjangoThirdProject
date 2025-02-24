@@ -1,22 +1,20 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import UserForm
+from .models import Person
 
 
 def index(request):
+    people = Person.objects.all()
+    userform = UserForm(request.POST)
+    return render(request, 'index.html', {'users': people, 'form': userform})
+
+def create_user(request):
     if request.method == 'POST':
         userform = UserForm(request.POST)
         if userform.is_valid():
             name = userform.cleaned_data['name']  # получить значение поля Имя
             age = userform.cleaned_data['age']  # получить значение поля Возраст
-            return render(
-                request,
-                'reply.html',
-                {"content": {"name": name, "age": age}})
-        else:
-            return render(
-                request,
-                'reply.html',
-                {"content": {"name": "You haven't passed the validation", "age": ""}})
-    else:
-        userform = UserForm()
-        return render(request, 'index.html', {'form': userform})
+            person = Person(name=name, age=age)
+            person.save()
+        return HttpResponseRedirect('/')
