@@ -32,3 +32,8 @@ def edit_user_page(request, user_id):
 def edit_user(request, user_id):
     userform = UserForm(request.POST)
     return render(request, 'edit_user.html', {'form': userform, 'action_url' : '/'})
+
+def delete_user(request, user_id):
+    person = Person.objects.get(id=user_id)
+    person.delete()
+    return HttpResponseRedirect('/')
