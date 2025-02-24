@@ -29,6 +29,6 @@ def edit_user_page(request, user_id):
             person.save()
         return HttpResponseRedirect('/')
 
-def edit_user(request):
+def edit_user(request, user_id):
     userform = UserForm(request.POST)
-    return render(request, 'edit_user.html', {'form': userform, 'action_url' : 'create/'})
+    return render(request, 'edit_user.html', {'form': userform, 'action_url' : '/'})
