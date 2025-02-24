@@ -4,9 +4,28 @@
         flex-direction: row;
         justify-content: center;"
 >
-    <ul>
+    <ul style="width: 50%">
         {% for user in users %}
-            <li>{{ user.name }} - {{ user.age }}</li>
+            <li>
+                <div style="
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;"
+                >
+                    <p>{{ user.name }} - {{ user.age }}</p>
+                    <div style="width: 30%">
+                        <a
+                                style="margin-right: 5%"
+                                href="{% url 'edit_user' user.id %}"
+                        >
+                            Edit
+                        </a>
+                        <button>Delete</button>
+                    </div>
+                </div>
+            </li>
         {% endfor %}
     </ul>
 </section>

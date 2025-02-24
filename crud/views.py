@@ -18,3 +18,17 @@ def create_user(request):
             person = Person(name=name, age=age)
             person.save()
         return HttpResponseRedirect('/')
+
+def edit_user_page(request, user_id):
+    if request.method == 'POST':
+        userform = UserForm(request.POST)
+        if userform.is_valid():
+            person = Person.objects.get(id=user_id)
+            person.name = userform.cleaned_data['name']
+            person.age = userform.cleaned_data['age']
+            person.save()
+        return HttpResponseRedirect('/')
+
+def edit_user(request):
+    userform = UserForm(request.POST)
+    return render(request, 'edit_user.html', {'form': userform, 'action_url' : 'create/'})
